@@ -40,9 +40,10 @@ const render = () => {
   var ul = document.querySelector(".todo-list");
   var content = '';
   store.getState().forEach(
-    item => content += `<li>${item.text}</li>`
+    item => content += `<li><input class="checkbox" type="checkbox" name="completed"> ${item.text}</li>`
   );
   ul.innerHTML = content;
+  console.log(store.getState());
 }
 
 // Original way of rendering
@@ -64,3 +65,8 @@ document.querySelector('.create-btn').onclick = () => {
   var id = lastItem ? lastItem.id + 1 : 0;
   store.dispatch({type:'ADD_TODO', id: id, text: inputText}); // create new todo item
 };
+
+// document.querySelector('.checkbox').onclick = () => {
+//   var id = lastItem ? lastItem.id + 1 : 0;
+//   store.dispatch({type:'TOGGLE_TODO', id: id}); // create new todo item
+// };
