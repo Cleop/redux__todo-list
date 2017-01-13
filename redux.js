@@ -36,15 +36,24 @@ const getLastItem = () => store.getState().last();
 /*
   const render = (state) => html
 */
-
-const render = () => { // render function updates DOM with todos values
-  var lastItem = getLastItem();
+const render = () => {
   var ul = document.querySelector(".todo-list");
-  var li = document.createElement("li");
-  li.appendChild(document.createTextNode(lastItem.text));
-  ul.appendChild(li);
-  // document.querySelector('.todo-list').innerHTML = '<li>'+(store.getState()[0]).text+'</li>'
+  var content = '';
+  store.getState().forEach(
+    item => content += `<li>${item.text}</li>`
+  );
+  ul.innerHTML = content;
 }
+
+// Original way of rendering
+// const render = () => { // render function updates DOM with todos values
+//   var lastItem = getLastItem();
+//   var ul = document.querySelector(".todo-list");
+//   var li = document.createElement("li");
+//   li.appendChild(document.createTextNode(lastItem.text));
+//   ul.appendChild(li);
+//   // document.querySelector('.todo-list').innerHTML = '<li>'+(store.getState()[0]).text+'</li>'
+// }
 
 store.subscribe(render); // all actions re-render the DOM
 
@@ -54,5 +63,4 @@ document.querySelector('.create-btn').onclick = () => {
   var lastItem = getLastItem();
   var id = lastItem ? lastItem.id + 1 : 0;
   store.dispatch({type:'ADD_TODO', id: id, text: inputText}); // create new todo item
-  console.log(store.getState());
 };
