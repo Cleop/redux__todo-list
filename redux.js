@@ -27,7 +27,11 @@ const { createStore } = Redux; // Redux is GLOBAL Object from redux.min.js
 const store = createStore(todos);
 
 const render = () => { // render function updates DOM with todos values
-  document.querySelector('.todo-list').innerHTML = '<li>'+(store.getState()[0]).text+'</li>'
+  var ul = document.querySelector(".todo-list");
+  var li = document.createElement("li");
+  li.appendChild(document.createTextNode((store.getState()[0]).text));
+  ul.appendChild(li);
+  // document.querySelector('.todo-list').innerHTML = '<li>'+(store.getState()[0]).text+'</li>'
 }
 
 store.subscribe(render); // all actions re-render the DOM
